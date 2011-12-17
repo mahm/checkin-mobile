@@ -12,7 +12,7 @@ FSApp.views.CheckinListView = Ext.extend(Ext.Panel, {
       handler: this.newButtonTap
 
     this.cancelButton = new Ext.Button
-      ui: 'back'
+      ui: 'drastic'
       text: 'Cancel'
       scope: this
       handler: this.cancelButtonTap

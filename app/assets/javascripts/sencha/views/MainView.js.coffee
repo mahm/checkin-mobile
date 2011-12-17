@@ -8,7 +8,7 @@ FSApp.views.MainView = Ext.extend(Ext.Panel, {
       checkinListView: new FSApp.views.CheckinListView({placeStore: FSApp.stores.placeStore})
       editPlaceView: new FSApp.views.EditPlaceView()
       checkinDetailView: new FSApp.views.CheckinDetailView()
-      # checkinEditView: new FSApp.views.CheckinListView({checkinListStore: FSApp.store.checkinListStore})
+      checkinEditView: new FSApp.views.CheckinEditView()
     })
 
     globalNavigation = new Ext.TabPanel

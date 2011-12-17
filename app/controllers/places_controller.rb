@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
     # NOTICE: 登録したレコードをsenchaにjsonで返す必要がある
     @saved_places = Place.where(:id => saved_id)
     respond_to do |format|
-      format.json { render :json => @saved_notes, :status => :ok }
+      format.json { render :json => @saved_places, :status => :ok }
     end
   end
 end

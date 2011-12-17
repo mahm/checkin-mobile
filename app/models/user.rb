@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   def friend_timeline_to_json
     result = []
     # friendのタイムラインの一番上には、自身の直前のチェックインが表示される
-    result << self.checkins.first.to_json
+    result << self.checkins.last.to_json
     self.friend_timeline.each do |checkin|
       result << checkin.to_json
     end

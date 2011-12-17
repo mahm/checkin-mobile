@@ -22,6 +22,13 @@ Ext.regController('PlacesController', {
       FSApp.views.checkinDetailView,
       {type: 'slide', direction: 'left'}
     )
+  'backShowplace': (options) ->
+    console.log "PlacesController: backShowplace"
+    FSApp.views.checkinDetailView.setPlace(options.place)
+    FSApp.views.mainView.setActiveItem(
+      FSApp.views.checkinDetailView,
+      {type: 'slide', direction: 'right'}
+    )
 
   'backFriendTimeline': (options) ->
     console.log "PlacesController: backFriendTimeline"
@@ -30,13 +37,6 @@ Ext.regController('PlacesController', {
     FSApp.views.mainView.setActiveItem(
       FSApp.views.friendTimelineView,
       {type: 'slide', direction: 'down'}
-    )
-
-  'backCheckinList': (options) ->
-    console.log "PlacesController: canceledit"
-    FSApp.views.mainView.setActiveItem(
-      FSApp.views.checkinListView,
-      {type: 'slide', direction: 'right'}
     )
 
   'saveplace': (options) ->
@@ -59,6 +59,47 @@ Ext.regController('PlacesController', {
       {type: 'slide', direction: 'right'}
     )
 
+  'checkinConfirm': (options) ->
+    console.log "PlacesController: checkinConfirm"
+    checkin = Ext.ModelMgr.create({
+      id: null
+      message: ''
+      place_id: options.place.data.id
+    }, 'CheckinModel')
+    FSApp.views.checkinEditView.checkinForm.load(checkin)
+    FSApp.views.checkinEditView.setPlace(options.place)
+    FSApp.views.mainView.setActiveItem(
+      FSApp.views.checkinEditView,
+      {type: 'slide', direction: 'left'}
+    )
+
+  'checkin': (option) ->
+    console.log "PlacesController: checkin"
+    checkin = FSApp.views.checkinEditView.checkinForm.getRecord()
+    FSApp.views.checkinEditView.checkinForm.updateRecord(checkin)
+    errors = checkin.validate()
+    if !errors.isValid()
+      checkin.reject()
+      Ext.Msg.alert('Wait!', errors.getByField('name')[0].message, Ext.emptyFn)
+      return
+    unless FSApp.stores.checkinStore.findRecord('id', checkin.data.id)
+      FSApp.stores.checkinStore.add(checkin)
+    else
+      checkin.setDirty()
+    FSApp.stores.checkinStore.sync()
+
+    # タイムラインを更新しておく
+    FSApp.stores.friendActivityStore.load()
+
+    # チェックイン後の画面に表示するデータの下準備
+    FSApp.views.friendTimelineView.dockedItems.items[1].setActiveItem(0)
+    FSApp.views.mainView.setActiveItem(
+      FSApp.views.friendTimelineView,
+      {type: 'slide', direction: 'up'}
+    )
+    console.log option.place
+    # チェックインメッセージの出力
+    Ext.Msg.alert('Hooley!', 'OK! We\'ve got you @ ' + option.place.data.name);
 })
 
 FSApp.controllers.placesController = Ext.ControllerManager.get('PlacesController')

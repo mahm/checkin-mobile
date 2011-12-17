@@ -7,6 +7,4 @@ Ext.regStore 'CheckinStore',
     reader:
       type: 'json'
 
-  autoLoad: true
-
-FSApp.stores.placeStore = Ext.StoreMgr.get('CheckinStore')
+FSApp.stores.checkinStore = Ext.StoreMgr.get('CheckinStore')

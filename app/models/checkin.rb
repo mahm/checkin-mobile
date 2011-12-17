@@ -9,7 +9,7 @@ class Checkin < ActiveRecord::Base
                 :id => self.id,
                 :user_name => self.user.name,
                 :place_name => self.place.name,
-                :checkin_time => distance_of_time_in_words_to_now(self.created_at)
+                :checkin_time => distance_of_time_in_words_to_now(self.created_at) + " ago"
               })
   end
 end
