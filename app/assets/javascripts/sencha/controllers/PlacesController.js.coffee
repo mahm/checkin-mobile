@@ -1,4 +1,11 @@
 Ext.regController('PlacesController', {
+  'index': (options) ->
+    console.log "PlacesController: index"
+    FSApp.views.mainView.setActiveItem(
+      FSApp.views.checkinListView,
+      {type: 'slide', direction: 'up'}
+    )
+
   'newplace': (options) ->
     console.log "PlacesController: newplace"
     place = Ext.ModelMgr.create({id: null, name: ''}, 'PlaceModel')
@@ -14,6 +21,15 @@ Ext.regController('PlacesController', {
     FSApp.views.mainView.setActiveItem(
       FSApp.views.checkinDetailView,
       {type: 'slide', direction: 'left'}
+    )
+
+  'backFriendTimeline': (options) ->
+    console.log "PlacesController: backFriendTimeline"
+    console.log FSApp.views.friendTimelineView.dockedItems.items[1]
+    FSApp.views.friendTimelineView.dockedItems.items[1].setActiveItem(0)
+    FSApp.views.mainView.setActiveItem(
+      FSApp.views.friendTimelineView,
+      {type: 'slide', direction: 'down'}
     )
 
   'backCheckinList': (options) ->

@@ -10,6 +10,7 @@ FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
 
     this.dockedItems = [
       this.topToolbar
+      # FSApp.views.globalNavigationTab
     ]
 
     this.friendTimeline = new Ext.List
