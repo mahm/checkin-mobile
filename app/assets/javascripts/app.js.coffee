@@ -1,8 +1,8 @@
 App = new Ext.Application
-  name: 'NotesApp'
+  name: 'FSApp'
   useLoadMask: true
 
   launch: ->
     Ext.dispatch
-      controller: NotesApp.controllers.notesController
+      controller: FSApp.controllers.friendTimelineController
       action: 'index'

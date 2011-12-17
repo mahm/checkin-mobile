@@ -1,18 +1,27 @@
-NotesApp.views.MainView = Ext.extend(Ext.Panel, {
+FSApp.views.MainView = Ext.extend(Ext.TabPanel, {
   fullscreen: true
   layout: 'card'
   cardSwitchAnimation: 'slide'
+  defaults:
+    scroll: 'vertical'
+  tabBar:
+    dock: 'bottom'
+    ui: 'dark'
+    layout:
+      pack: 'center'
   initComponent: ->
-    Ext.apply(NotesApp.views, {
-      notesListView: new NotesApp.views.NotesListView({notesStore: NotesApp.stores.notesStore}),
-      noteEditorView: new NotesApp.views.NoteEditorView()
+    Ext.apply(FSApp.views, {
+      friendTimelineView: new FSApp.views.FriendTimelineView({friendActivityStore: FSApp.stores.friendActivityStore})
+      # checkinListView: new FSApp.views.CheckinListView({checkinListStore: FSApp.store.checkinListStore}),
+      # checkinDetailView: new FSApp.views.CheckinListView({checkinListStore: FSApp.store.checkinListStore}),
+      # checkinEditView: new FSApp.views.CheckinListView({checkinListStore: FSApp.store.checkinListStore})
     })
     this.items = [
-      NotesApp.views.notesListView,
-      NotesApp.views.noteEditorView
+      FSApp.views.friendTimelineView
     ]
-    NotesApp.views.MainView.superclass.initComponent.call(this)
+
+    FSApp.views.MainView.superclass.initComponent.call(this)
     this.on('render', ->
-      NotesApp.stores.notesStore.load()
+      FSApp.stores.friendActivityStore.load()
     )
 })

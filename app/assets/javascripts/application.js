@@ -5,10 +5,9 @@
 // the compiled file.
 //
 //= require vendor-debug
-//= require notes
-//= require ./sencha/models/NoteModel
-//= require ./sencha/stores/NotesStore
+//= require app
+//= require ./sencha/models/FriendActivityModel
+//= require ./sencha/stores/FriendActivityStore
 //= require ./sencha/views/MainView
-//= require ./sencha/views/NotesListView
-//= require ./sencha/views/NoteEditorView
-//= require ./sencha/controllers/NotesController
+//= require ./sencha/views/FriendTimelineView
+//= require ./sencha/controllers/FriendTimelineController
