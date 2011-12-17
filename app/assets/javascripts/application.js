@@ -6,8 +6,7 @@
 //
 //= require vendor-debug
 //= require app
-//= require ./sencha/models/FriendActivityModel
-//= require ./sencha/stores/FriendActivityStore
-//= require ./sencha/views/MainView
-//= require ./sencha/views/FriendTimelineView
-//= require ./sencha/controllers/FriendTimelineController
+//= require_directory ./sencha/models
+//= require_directory ./sencha/stores
+//= require_directory ./sencha/views
+//= require_directory ./sencha/controllers

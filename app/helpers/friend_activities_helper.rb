@@ -1,0 +1,2 @@
+module FriendActivitiesHelper
+end

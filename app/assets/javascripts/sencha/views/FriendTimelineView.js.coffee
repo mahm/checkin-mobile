@@ -1,6 +1,6 @@
 FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
   title: 'Friends'
-  iconCls: 'user'
+  iconCls: 'team'
   friendActivityStore: Ext.emptyFn
   friendTimeline: Ext.emptyFn
   layout: 'fit'
@@ -14,10 +14,12 @@ FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
 
     this.friendTimeline = new Ext.List
       store: this.friendActivityStore
-      grouped: true
       emptyText: '<div style="margin:5px;">Friend activities not cached.</div>'
-      itemTpl: '<div class="friend-timeline">{user_name} @ {place_name}</div>'
+      itemTpl: '<div class="friend-timeline">{user_name} @ {place_name}<div class="checkin_time">{checkin_time}</div></div>'
       onItemDisclosure: true
+      plugins: [
+        {ptype: 'pullrefresh'}
+      ]
 
     this.items = [this.friendTimeline]
     FSApp.views.FriendTimelineView.superclass.initComponent.call(this)

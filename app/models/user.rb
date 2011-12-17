@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   has_many :friendships
   has_many :friends, :through => :friendships, :class_name => "User"
@@ -8,10 +9,12 @@ class User < ActiveRecord::Base
   end
   
   def friend_timeline
-    self.checkins.order('created_at DESC')
+    Checkin.where(:user_id => self.friends).order('created_at DESC').includes(:user, :place)
   end
   def friend_timeline_to_json
     result = []
+    # friendのタイムラインの一番上には、自身の直前のチェックインが表示される
+    result << self.checkins.first.to_json
     self.friend_timeline.each do |checkin|
       result << checkin.to_json
     end
