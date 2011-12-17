@@ -21,4 +21,9 @@ gem 'haml-rails'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'factory_girl_rails', "~> 1.2"
+end
+
+group :development do
+  gem 'heroku_san'
 end
