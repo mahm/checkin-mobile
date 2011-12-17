@@ -34,8 +34,7 @@ Ext.regController('PlacesController', {
     )
   'backFriendTimeline': (options) ->
     console.log "PlacesController: backFriendTimeline"
-    console.log FSApp.views.friendTimelineView.dockedItems.items[1]
-    FSApp.views.friendTimelineView.dockedItems.items[1].setActiveItem(0)
+    FSApp.views.friendTimelineView.dockedItems.items[2].setActiveItem(0)
     FSApp.views.mainView.setActiveItem(
       FSApp.views.friendTimelineView,
       {type: 'slide', direction: 'down'}
@@ -94,7 +93,7 @@ Ext.regController('PlacesController', {
     FSApp.stores.friendActivityStore.load()
 
     # チェックイン後の画面に表示するデータの下準備
-    FSApp.views.friendTimelineView.dockedItems.items[1].setActiveItem(0)
+    FSApp.views.friendTimelineView.dockedItems.items[2].setActiveItem(0)
     FSApp.views.mainView.setActiveItem(
       FSApp.views.friendTimelineView,
       {type: 'slide', direction: 'up'}
