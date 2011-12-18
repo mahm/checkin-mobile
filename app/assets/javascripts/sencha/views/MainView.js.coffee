@@ -4,6 +4,7 @@ FSApp.views.MainView = Ext.extend(Ext.Panel, {
   cardSwitchAnimation: 'slide'
   initComponent: ->
     Ext.apply(FSApp.views, {
+      loginView: new FSApp.views.LoginView()
       friendTimelineView: new FSApp.views.FriendTimelineView({friendActivityStore: FSApp.stores.friendActivityStore})
       checkinListView: new FSApp.views.CheckinListView({placeStore: FSApp.stores.placeStore})
       editPlaceView: new FSApp.views.EditPlaceView()
@@ -26,9 +27,6 @@ FSApp.views.MainView = Ext.extend(Ext.Panel, {
     # FSApp.views.friendTimelineView.dockedItems.items.push(globalNavigation)
 
     FSApp.views.MainView.superclass.initComponent.call(this)
-    this.on('render', ->
-      FSApp.stores.friendActivityStore.load()
-    )
 
   onFriendsTap: ->
     Ext.dispatch

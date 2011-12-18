@@ -13,16 +13,30 @@ class User < ActiveRecord::Base
   end
   def friend_timeline_to_json
     result = []
-    # friendのタイムラインの一番上には、自身の直前のチェックインが表示される
-    result << self.checkins.last.to_json
-    self.friend_timeline.each do |checkin|
-      result << checkin.to_json
+    if self.checkins.empty?
+      "[" + Checkin.dummy_json + "]"
+    else
+      # friendのタイムラインの一番上には、自身の直前のチェックインが表示される
+      result << self.checkins.last.to_json
+      self.friend_timeline.each do |checkin|
+        result << checkin.to_json
+      end
+      "[" + result.join(',') + "]"
     end
-    "[" + result.join(',') + "]"
   end
 
   def checkin(attr)
     checkin = self.checkins.build(:place_id => attr[:place_id], :message => attr[:message])
     self.checkins << checkin
+  end
+
+  serialize :auth
+  def self.create_with_omniauth(auth)
+    new_user = User.new(name: auth[:info][:name], provider: auth[:provider], uid: auth[:uid], auth: auth)
+    new_user.save!
+    new_user
+  end
+  def token
+    self.auth["credentials"]["token"]
   end
 end

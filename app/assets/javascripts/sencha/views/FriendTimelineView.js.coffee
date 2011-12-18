@@ -25,5 +25,7 @@ FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
     FSApp.views.FriendTimelineView.superclass.initComponent.call(this)
 
   refreshList: ->
-    this.friendTimeline.refresh()
+    this.friendActivityStore.load()
+    this.friendTimeline.update()
+    return true
 })

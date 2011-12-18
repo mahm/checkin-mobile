@@ -18,6 +18,8 @@ end
 
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'rspec-rails'

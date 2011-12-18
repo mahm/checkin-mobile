@@ -7,6 +7,6 @@ Ext.regStore 'PlaceStore',
     reader:
       type: 'json'
 
-  autoLoad: true
+  autoLoad: false
 
 FSApp.stores.placeStore = Ext.StoreMgr.get('PlaceStore')

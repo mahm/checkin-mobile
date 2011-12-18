@@ -6,7 +6,11 @@ Ext.regStore 'FriendActivityStore',
     url: 'friend_activities.json'
     reader:
       type: 'json'
+    listeners:
+      exception: (store, response, op) ->
+        this.statusCode = response.status
+        op.records = []
 
-  autoLoad: true
+  autoLoad: false
 
 FSApp.stores.friendActivityStore = Ext.StoreMgr.get('FriendActivityStore')

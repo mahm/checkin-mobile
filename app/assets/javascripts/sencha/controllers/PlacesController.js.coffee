@@ -1,6 +1,7 @@
 Ext.regController('PlacesController', {
   'index': (options) ->
     console.log "PlacesController: index"
+    FSApp.stores.placeStore.load()
     FSApp.views.mainView.setActiveItem(
       FSApp.views.checkinListView,
       {type: 'slide', direction: 'up'}
@@ -77,20 +78,14 @@ Ext.regController('PlacesController', {
   'checkin': (option) ->
     console.log "PlacesController: checkin"
     checkin = FSApp.views.checkinEditView.checkinForm.getRecord()
-    FSApp.views.checkinEditView.checkinForm.updateRecord(checkin)
-    errors = checkin.validate()
-    if !errors.isValid()
-      checkin.reject()
-      Ext.Msg.alert('Wait!', errors.getByField('name')[0].message, Ext.emptyFn)
-      return
-    unless FSApp.stores.checkinStore.findRecord('id', checkin.data.id)
-      FSApp.stores.checkinStore.add(checkin)
-    else
-      checkin.setDirty()
-    FSApp.stores.checkinStore.sync()
+    console.log checkin
+    Ext.Ajax.request
+      url: '/checkins.json'
+      method: 'post'
+      params: checkin.data
 
     # タイムラインを更新しておく
-    FSApp.stores.friendActivityStore.load()
+    FSApp.views.friendTimelineView.refreshList()
 
     # チェックイン後の画面に表示するデータの下準備
     FSApp.views.friendTimelineView.dockedItems.items[2].setActiveItem(0)

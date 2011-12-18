@@ -12,4 +12,13 @@ class Checkin < ActiveRecord::Base
                 :checkin_time => distance_of_time_in_words_to_now(self.created_at) + " ago"
               })
   end
+
+  def self.dummy_json
+    JSON.dump({
+                :id => "1",
+                :user_name => "Where are you go?",
+                :place_name => "Nice Place!",
+                :checkin_time => ""
+              })
+  end
 end

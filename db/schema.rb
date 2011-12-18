@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111217054012) do
+ActiveRecord::Schema.define(:version => 20111218045156) do
 
   create_table "checkins", :force => true do |t|
     t.text     "message"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20111217054012) do
     t.text     "auth"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
   end
 
 end
