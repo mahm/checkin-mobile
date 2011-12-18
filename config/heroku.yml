@@ -1,0 +1,14 @@
+#
+# Format:
+#
+# <heroku_san shorthand name>:
+#   app: <Heroku app name>
+#   config:
+#     - <Heroku config:var name>: <Heroku config:var value>
+#
+production:
+  app: fs-rep
+  config:
+    BUNDLE_WITHOUT: "development:test"
+    FACEBOOK_APP_ID: "155126737925397"
+    FACEBOOK_APP_SECRET: "293cb4f995ebe716cdf6d1e055bcfa23"
