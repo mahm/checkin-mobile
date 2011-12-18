@@ -66,7 +66,7 @@ Ext.regController('PlacesController', {
   'checkin': (option) ->
     console.log "PlacesController: checkin"
     checkin = FSApp.views.checkinEditView.checkinForm.getRecord()
-    FSApp.views.checkinEditView.updateRecord(checkin)
+    FSApp.views.checkinEditView.checkinForm.updateRecord(checkin)
     Ext.Ajax.request
       url: '/checkins.json'
       method: 'post'
