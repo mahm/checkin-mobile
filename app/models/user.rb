@@ -25,12 +25,7 @@ class User < ActiveRecord::Base
     end
   end
   def addable_friends
-    User.where("id NOT IN (?)", self.friends << self)
-  end
-
-  def checkin(attr)
-    checkin = self.checkins.build(:place_id => attr[:place_id], :message => attr[:message])
-    self.checkins << checkin
+    User.where("id NOT IN (?)", [self.friends, self].flatten)
   end
 
   serialize :auth
