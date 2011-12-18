@@ -1,7 +1,18 @@
-FSApp.views.MainView = Ext.extend(Ext.Panel, {
+FSApp.views.MainView = Ext.extend(Ext.TabPanel, {
   fullscreen: true
   layout: 'card'
   cardSwitchAnimation: 'slide'
+  tabBar:
+    ui: 'dark'
+    dock: 'bottom'
+    layout:
+      pack: 'center'
+  listeners:
+    beforecardswitch: ->
+      # ugly hack...
+      if this.tabBar.items.length > 4
+        this.tabBar.remove(4)
+        this.tabBar.render()
   initComponent: ->
     Ext.apply(FSApp.views, {
       loginView: new FSApp.views.LoginView()
@@ -10,21 +21,24 @@ FSApp.views.MainView = Ext.extend(Ext.Panel, {
       editPlaceView: new FSApp.views.EditPlaceView()
       checkinDetailView: new FSApp.views.CheckinDetailView()
       checkinEditView: new FSApp.views.CheckinEditView()
+      myAccountView: new FSApp.views.MyAccountView()
+      addFriendView: new FSApp.views.AddFriendView({addableFriendStore: FSApp.stores.addableFriendStore})
     })
-
-    globalNavigation = new Ext.TabPanel
-      tabBar:
-        ui: 'dark'
-        dock: 'bottom'
-        layout:
-          pack: 'center'
-      items: [
-        {title: 'Friends', iconCls: 'team', listeners: { activate: this.onFriendsTap } },
-        {title: 'Check In', iconCls: 'download', listeners: { activate: this.onCheckinTap } },
-        {title: 'My Account', iconCls: 'user', listeners: { activate: this.onAccountTap } }
-      ]
-    FSApp.views.friendTimelineView.dockedItems.items.push(globalNavigation)
-    # FSApp.views.friendTimelineView.dockedItems.items.push(globalNavigation)
+    this.items = [
+      FSApp.views.friendTimelineView,
+      FSApp.views.checkinListView,
+      FSApp.views.myAccountView,
+      {title: 'Sign Out', iconCls: 'more', listeners: { activate: this.onSignOut }}
+    ]
+    FSApp.views.friendTimelineView.addListener
+      eventName: 'activate'
+      handler: this.onFriendsTap
+    FSApp.views.checkinListView.addListener
+      eventName: 'activate'
+      handler: this.onCheckinTap
+    FSApp.views.myAccountView.addListener
+      eventName: 'activate'
+      handler: this.onAccountTap
 
     FSApp.views.MainView.superclass.initComponent.call(this)
 
@@ -39,5 +53,10 @@ FSApp.views.MainView = Ext.extend(Ext.Panel, {
       action: 'index'
 
   onAccountTap: ->
-    console.log "you tap my account"
+    Ext.dispatch
+      controller: FSApp.controllers.myAccountController
+      action: 'show'
+
+  onSignOut: ->
+    window.location.href = "/signout"
 })

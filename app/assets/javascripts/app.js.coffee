@@ -12,6 +12,7 @@ App = new Ext.Application
       callback: (records, operation, success) ->
         if this.statusCode == 401
           console.log "[LOG]need login to facebook"
+          FSApp.views.mainView.tabBar.hide()
           Ext.dispatch
             controller: FSApp.controllers.loginController
             action: 'login'

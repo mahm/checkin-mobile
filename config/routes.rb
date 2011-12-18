@@ -7,4 +7,10 @@ MyNote::Application.routes.draw do
   resources :friend_activities, :only => [:index, :show]
   resources :places, :only => [:index, :show, :create]
   resources :checkins, :only => [:create]
+
+  resources :friends, :only => [:index, :create] do
+    collection do
+      get :addable
+    end
+  end
 end

@@ -12,7 +12,6 @@ FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
       store: this.friendActivityStore
       emptyText: '<div style="margin:5px;">Let\'s invite your friends!</div>'
       itemTpl: '<div class="friend-timeline">{user_name} @ {place_name}<div class="checkin_time">{checkin_time}</div></div>'
-      onItemDisclosure: true
       plugins: [{
         ptype: 'pullrefresh'
         autoPaging: true

@@ -11,16 +11,9 @@ FSApp.views.CheckinListView = Ext.extend(Ext.Panel, {
       scope: this
       handler: this.newButtonTap
 
-    this.cancelButton = new Ext.Button
-      ui: 'drastic'
-      text: 'Cancel'
-      scope: this
-      handler: this.cancelButtonTap
-
     this.topToolbar = new Ext.Toolbar
       title: 'Nearby Places'
       items: [
-        this.cancelButton,
         {xtype: 'spacer'},
         this.newButton
       ]
@@ -43,10 +36,18 @@ FSApp.views.CheckinListView = Ext.extend(Ext.Panel, {
     , this)
 
     this.items = [this.placesList]
+
+    this.listeners = {
+      activate: ->
+        Ext.dispatch
+          controller: FSApp.controllers.placesController
+          action: 'index'
+    }
     FSApp.views.CheckinListView.superclass.initComponent.call(this)
 
   refreshList: ->
-    this.placesList.refresh()
+    this.placeStore.load()
+    this.placesList.update()
 
   newButtonTap: ->
     Ext.dispatch
@@ -58,10 +59,4 @@ FSApp.views.CheckinListView = Ext.extend(Ext.Panel, {
       controller: FSApp.controllers.placesController
       action: 'showplace'
       place: record
-
-  cancelButtonTap: ->
-    Ext.dispatch
-      controller: FSApp.controllers.placesController
-      action: 'backFriendTimeline'
-
 })
