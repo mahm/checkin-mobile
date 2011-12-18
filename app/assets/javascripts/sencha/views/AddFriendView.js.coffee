@@ -42,7 +42,8 @@ FSApp.views.AddFriendView = Ext.extend(Ext.Panel, {
   backButtonTap: ->
     Ext.dispatch
       controller: FSApp.controllers.myAccountController
-      action: 'backmyaccount'
+      action: 'show'
+      direction: 'right'
 
   addFriendTap: (record, index) ->
     Ext.dispatch

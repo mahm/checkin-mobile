@@ -1,12 +1,12 @@
 FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
-  title: 'Friends'
-  iconCls: 'team'
+  title: 'Timeline'
+  iconCls: 'time'
   friendActivityStore: Ext.emptyFn
   friendTimeline: Ext.emptyFn
   layout: 'fit'
   initComponent: ->
     this.topToolbar = new Ext.Toolbar
-      title: 'foursquare'
+      title: 'Check In Timeline'
 
     this.friendTimeline = new Ext.List
       store: this.friendActivityStore
@@ -14,7 +14,6 @@ FSApp.views.FriendTimelineView = Ext.extend(Ext.Panel, {
       itemTpl: '<div class="friend-timeline">{user_name} @ {place_name}<div class="checkin_time">{checkin_time}</div></div>'
       plugins: [{
         ptype: 'pullrefresh'
-        autoPaging: true
       }]
 
     this.dockedItems = [

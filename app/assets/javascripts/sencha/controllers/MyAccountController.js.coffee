@@ -1,9 +1,10 @@
 Ext.regController('MyAccountController', {
   'show': (options) ->
     console.log "MyAccountController: show"
+    FSApp.views.myAccountView.refreshList()
     FSApp.views.mainView.setActiveItem(
       FSApp.views.myAccountView,
-      {type: 'slide', direction: 'left'}
+      {type: 'slide', direction: options.direction}
     )
   'friends': (options) ->
     console.log "MyAccountController: friends"
@@ -11,12 +12,6 @@ Ext.regController('MyAccountController', {
     FSApp.views.mainView.setActiveItem(
       FSApp.views.addFriendView,
       {type: 'slide', direction: 'left'}
-    )
-  'backmyaccount': (options) ->
-    console.log "MyAccountController: backmyaccount"
-    FSApp.views.mainView.setActiveItem(
-      FSApp.views.myAccountView,
-      {type: 'slide', direction: 'right'}
     )
   'addFriend': (options) ->
     console.log "MyAccountController: addFriend"

@@ -21,6 +21,7 @@ App = new Ext.Application
           # autoLoad on
           FSApp.stores.friendActivityStore.autoLoad = true
           FSApp.stores.placeStore.autoLoad = true
+          FSApp.stores.friendStore.autoLoad = true
           # dispatch timeline of friends
           Ext.dispatch
             controller: FSApp.controllers.friendTimelineController
